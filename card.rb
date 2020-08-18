@@ -3,10 +3,10 @@ require "byebug"
 class Card
 
   def initialize
-    alpha = ("a".."z").to_a
+    alpha = ("A".."Z").to_a
     # @faceup = false
     @facedown = true
-    @value = alpha.sample.upcase
+    @value = alpha.sample
   end
 
   def display_value

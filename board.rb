@@ -3,27 +3,30 @@ require "byebug"
 
 class Board
 
-  attr_accessor :cards, :size
+  attr_accessor :cards, :size, :grid
 
-  def initialize(n)
-    @size = (n += 1 if (n*n).odd?)
-
-    @grid = Array.new(n) { Array.new(n) }
+  def initialize(n=4)
+    @size = (n += 1 if (n*n).odd?) || n
+    @grid = grid #Array.new(n) { Array.new(n) {1} }
     @cards = []
   end
 
-  def populate(size=@size)
 
-    ((size*size)/2).times do
+  def make_deck
+    ((@size*@size)/2).times do
         @cards << Card.new
     end
-# pos.random set to card.each
-    @grid.each do |row|
-        row.each do |pos|
-            pos += @cards.sample
-        end
-    end
+    @cards << @cards.clone
+    @cards = @cards.flatten.shuffle!
   end
+
+
+  def populate(size=@size)
+    make_deck
+    @grid = @cards.each_slice(@size).to_a
+  end
+
+
 
 
 end
