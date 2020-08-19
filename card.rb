@@ -2,6 +2,8 @@ require "byebug"
 
 class Card
 
+  attr_accessor :value, :facedown #do i need both these?
+  
   def initialize
     alpha = ("A".."Z").to_a
     # @faceup = false

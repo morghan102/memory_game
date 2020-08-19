@@ -26,7 +26,33 @@ class Board
     @grid = @cards.each_slice(@size).to_a
   end
 
+  def render 
+    puts "  #{(0...size).to_a.join(' ')}"
+    @grid.each_with_index do |row, i|
+      puts "#{i} #{(row.map {|pos| pos.value}).join(' ')}"
+    end
+    true
+  end
+
+  def reveal
+    if @cards[guessed_pos] #that is the user input BUT i  need smth to tack it into the game
+      @cards[guessed_pos].swap
+      @cards[guessed_pos].value
+    end
+  end
+
+  def won?
+    return true if @cards.all? { |card| !card.facedown }
+
+    false
+  end
 
 
+  def [](pos)
+    @cards[pos]
+  end
 
+  def []=(pos, value)
+    @cards[pos] = value
+  end
 end
