@@ -41,11 +41,11 @@ class Game
     if code == 1
       puts "Which card would you like to flip?"
     elsif code == 2
+      system("clear")
       puts "You got a match!"
-      puts
     elsif code == 3
+      system("clear")
       puts "Sorry, not a match."
-      puts
     end
     # anything else here?? idk
   end
@@ -64,6 +64,7 @@ class Game
       if @current_guess.value == @previous_guess.value
         prompt(2)
       else
+        sleep(2)
         prompt(3)
         @current_guess.swap #flip em back over
         @previous_guess.swap 
@@ -75,6 +76,7 @@ class Game
     # debugger
     
     @board.reveal(pos) #guessed card is faceup now,returns value
+    # system("clear")
     @board.render
     if (@board.cards.count { |card| !card.facedown }).odd?
       @previous_guess = @board.grid[pos[0]][pos[1]]
