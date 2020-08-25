@@ -9,7 +9,7 @@ class Game
   def initialize(*size)
     @board = Board.new(*size)
     @previous_guess = []
-    # @guessed_pos = guessed_pos #do i need ths?
+    @current_guess = [] #do i need ths?
   end
 
   def play
@@ -17,10 +17,10 @@ class Game
     until self.over?
         @board.render #will have flipped cards as flipped, don worry
         puts
-        prompt
-        # pos = make_pos_arr(gets.chomp)
+        prompt(1)
         pos = gets.chomp.split(" ").map(&:to_i)
-        make_guess(pos)
+        make_guess(pos) #this can handle the inner loop
+        # where we check the current guess agst the prev one
         
     end
   end
@@ -37,8 +37,12 @@ class Game
   #   arr
   # end
 
-  def prompt
-    puts "Which card would you like to flip?"
+  def prompt(code)
+    if code == 1
+      puts "Which card would you like to flip?"
+    elsif code == 2
+      puts "You got a match!"
+    end
     # anything else here?? idk
   end
 
@@ -51,29 +55,39 @@ class Game
 # If the cards match, we should leave them both face-up.
 # Else, flip both cards face-down.
 # In either case, reset previous_guess.
-  def check_match(new_card)
+  def check_match
       @board.render #show new move
-      if new_card == @previous_guess
-        put "You got a match!"
+      if @current_guess == @previous_guess 
+        #those are pos's
+# i need to compare the card values
+        prompt(2)
       else
-        new_card.swap #flip em back over
+        @current_guess.swap #flip em back over
         @previous_guess.swap
       end
   end
 
 
   def make_guess(pos)
+    debugger
     
     @board.reveal(pos) #guessed card is faceup now
 
     if (@board.cards.count { |card| !card.facedown }).odd?
+      p @previous_guess = @board.grid[pos[0]][pos[1]]
+      prompt(1)
+      new_pos = gets.chomp.split(" ").map(&:to_i)
+      @current_guess = @board.grid[new_pos[0]][new_pos[1]]
+      check_match
 
         # if @cards[pos] != @previous_guess
         #   @board.cards[pos].swap
         #   @previous_guess.swap #flip both facedown
         # # working on flipping them back over!!
+
+
         else
-          @previous_guess = @board.cards[pos]
+          @previous_guess = @board.grid[pos[0]][pos[1]]
     end
   end
 

@@ -54,9 +54,11 @@ class Board
     # pos = a 1d arr, but i need 2d (@grid[1,1] vs @grid[1][1])
     # pos is input as [1,1]. i need to change that!!!!
 
-    if @grid[pos[0]][pos[1]]
-      @grid[pos[0]][pos[1]].swap
-      @grid[pos[0]][pos[1]].value
+    if @grid[pos[0]][pos[1]].facedown #self[pos]#
+      @grid[pos[0]][pos[1]].swap #self[pos].swap#
+      @grid[pos[0]][pos[1]].value #self[pos].value #
+    else
+      @grid[pos[0]][pos[1]].value 
     end
   end
   # this should then reveal where it is ONT HE BOARD, print grid
@@ -69,10 +71,14 @@ class Board
 
 
   def [](pos)
-    @cards[pos[0]][pos[1]]
+    # @cards[pos[0]][pos[1]]
+    @grid[pos[0]][pos[1]]
+
   end
 
   def []=(pos, value)
-    @cards[pos[0]][pos[1]] = value
+    # @cards[pos[0]][pos[1]] = value
+    @grid[pos[0]][pos[1]] = value
+
   end
 end
