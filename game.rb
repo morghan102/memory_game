@@ -42,6 +42,10 @@ class Game
       puts "Which card would you like to flip?"
     elsif code == 2
       puts "You got a match!"
+      puts
+    elsif code == 3
+      puts "Sorry, not a match."
+      puts
     end
     # anything else here?? idk
   end
@@ -56,27 +60,28 @@ class Game
 # Else, flip both cards face-down.
 # In either case, reset previous_guess.
   def check_match
-      @board.render #show new move
-      if @current_guess == @previous_guess 
-        #those are pos's
-# i need to compare the card values
+      # @board.render I put this after they make the guess
+      if @current_guess.value == @previous_guess.value
         prompt(2)
       else
+        prompt(3)
         @current_guess.swap #flip em back over
-        @previous_guess.swap
+        @previous_guess.swap 
       end
   end
 
 
   def make_guess(pos)
-    debugger
+    # debugger
     
-    @board.reveal(pos) #guessed card is faceup now
-
+    @board.reveal(pos) #guessed card is faceup now,returns value
+    @board.render
     if (@board.cards.count { |card| !card.facedown }).odd?
-      p @previous_guess = @board.grid[pos[0]][pos[1]]
+      @previous_guess = @board.grid[pos[0]][pos[1]]
       prompt(1)
       new_pos = gets.chomp.split(" ").map(&:to_i)
+      @board.reveal(new_pos)
+      @board.render
       @current_guess = @board.grid[new_pos[0]][new_pos[1]]
       check_match
 
