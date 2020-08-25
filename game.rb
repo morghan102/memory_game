@@ -63,14 +63,11 @@ class Game
 
 
   def make_guess(pos)
-    # debugger
+    
     @board.reveal(pos) #guessed card is faceup now
 
     if (@board.cards.count { |card| !card.facedown }).odd?
-    p pos
-    p [pos[0]][pos[1]]
-    p @board.cards[pos[0]][pos[1]]
-      check_match(@board.cards[pos[0]][pos[1]])
+
         # if @cards[pos] != @previous_guess
         #   @board.cards[pos].swap
         #   @previous_guess.swap #flip both facedown
