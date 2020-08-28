@@ -7,8 +7,6 @@ class ComputerPlayer
   end
 
   def receive_revealed_card(pos, val)
-# should take in a position and the value of the card revealed 
-# at that location. It should then store it in a @known_cards hash.
     @known_cards[pos] = val
   end
 

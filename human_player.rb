@@ -3,9 +3,7 @@ class HumanPlayer
   attr_accessor :name
 
   def initialize(name)
-    # debugger
     @name = name
-    @num_wins = 0 #meys dont need this?
   end
 
   def guess
@@ -24,5 +22,13 @@ class HumanPlayer
       puts "Sorry, not a match."
     end
   end
+
+
+  def receive_revealed_card(pos, val)
+  end
+
+  def receive_match(card_one, card_two)
+  end
+
 
 end
