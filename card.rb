@@ -2,11 +2,10 @@ require "byebug"
 
 class Card
 
-  attr_accessor :value, :facedown #do i need both these?
+  attr_accessor :value, :facedown 
   
   def initialize(*val)
     alpha = ("A".."Z").to_a
-    # @faceup = false
     @facedown = true
     @value = if val.empty? #nothing passed in
       alpha.sample
@@ -32,10 +31,9 @@ class Card
     end
   end
 
-  def hide_or_reveal
+  def hide_or_reveal #dont need this, not sure what the pt was int he 
+    # 1st place
     swap
   end
 
 end
-
-#hide, #reveal, #to_s, and #==
